@@ -11,13 +11,13 @@ public class Destructor {
                 b[j][i].setOccupied(false);
             }
         }
-        xList.removeAll(xList);
-        oList.removeAll(oList);
+        xList.clear();
+        oList.clear();
         wC.GameResult = -1;
         wC.setWinner(-1);
         wC.winState = false;
         wC.EmptySp = 9;
         System.out.println("[+] Destroyed ..");
-        wC.winCheck();
+        wC.run();
     }
 }

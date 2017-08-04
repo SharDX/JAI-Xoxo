@@ -86,13 +86,14 @@ public class winCheck implements Runnable {
             if(EmptySp==0){Tie=true;break;}else{EmptySp=9;}
             //System.out.println("-------");
             Count++;
-            try { Thread.sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
         }
         GameResult = winState?getWinner():2;
         makeStats(GameResult);
         System.out.println("Game Ended With State " + GameResult + " Totall Amount of Checks .. "+Count);
         Gamec++;
         game.ML.resetT();
+        game.Destorying = true;
         new Destructor(b,game.xList,game.oList,this);
 
     }
@@ -100,7 +101,8 @@ public class winCheck implements Runnable {
     public int getWinner(){ return this.Winner; }
     public void setWinner(int Winner){this.Winner = Winner;}
     public void run(){
-            winCheck();
+        game.Destorying = false;
+        winCheck();
     }
     public void makeStats(int GameResult){
             if(GameResult == 2){
