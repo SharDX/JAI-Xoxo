@@ -7,6 +7,8 @@ import java.util.List;
 
 
 public class Game extends JPanel{
+    public static boolean Destorying = false;
+
     public static MouseListener ML;
     public static winCheck Checker;
 
@@ -23,18 +25,16 @@ public class Game extends JPanel{
         Game g = new Game();
         new OptionMenue(g).start();
         int i;
-        for (int e=0;e<GS;e++){
-            for (i=0;i<GS;i++) {
-                D2[i][e] = i > 0 ?new box(D2[i-1][e].bX()+box.size,Griy):new box(Grix,Griy);
+        for (int e = 0; e < GS; e++) {
+            for (i = 0; i < GS; i++) {
+                D2[i][e] = i > 0 ? new box(D2[i - 1][e].bX() + box.size, Griy) : new box(Grix, Griy);
             }
             Griy += 200;
         }
-        while (true){
-            try {
+        while (true) {
+            if(!Destorying) {
                 g.repaint();
-            }
-            catch (Exception e){ e.printStackTrace(); }
-
+            }else {Thread.sleep(5);}
         }
     }
     public void setPlayerNames(String[] Players,Game g){

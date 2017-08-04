@@ -18,39 +18,43 @@ public class MouseListener extends MouseAdapter implements Runnable {
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         //System.out.println(turn+" <-INTIAL ? <-");
         //System.out.println("CLICK" + e.getPoint());
-        if(e.getY() < Game.GS*box.size && e.getX() < Game.GS*box.size) {
-            for (int k = 0; k < GS; k++) {
-                for (int i = 0; i < GS; i++) {
-                    //System.out.println(i + " k "+k);
-                    if (D2[i][k].Contain(e.getPoint())) {
-                        //System.out.println("true .. "+ e.getX() +" y "+e.getY());
-                        if (!D2[i][k].isOccupied()) {
-                            if (turn > 0) {
-                                new O(D2[i][k], Player[turn], g, turn);
-                            } else if (turn > -1) {
-                                new X(D2[i][k], Player[turn], g, turn);
+        if(!g.Destorying) {
+            if (e.getY() < Game.GS * box.size && e.getX() < Game.GS * box.size) {
+                for (int k = 0; k < GS; k++) {
+                    for (int i = 0; i < GS; i++) {
+                        //System.out.println(i + " k "+k);
+                        if (D2[i][k].Contain(e.getPoint())) {
+                            //System.out.println("true .. "+ e.getX() +" y "+e.getY());
+                            if (!D2[i][k].isOccupied()) {
+                                if (turn > 0) {
+                                    new O(D2[i][k], Player[turn], g, turn);
+                                } else if (turn > -1) {
+                                    new X(D2[i][k], Player[turn], g, turn);
+                                }
                             }
+                            //turn=!D2[i][k].isOccupied()?turn:turn>0?0:1;
+                            else {
+                                turn = turn > 0 ? 0 : 1;
+                            }
+                            //System.out.println(this.turn+" <- After Dup Check");
+                            D2[i][k].setXO(turn);
                         }
-                        //turn=!D2[i][k].isOccupied()?turn:turn>0?0:1;
-                        else {
-                            turn = turn > 0 ? 0 : 1;
-                        }
-                        //System.out.println(this.turn+" <- After Dup Check");
-                        D2[i][k].setXO(turn);
                     }
                 }
+
+                //new winCheck(g,D2,Player[turn]).winCheck();
+                //turn = turn>0?-1:0;
+                //turn++;
+
+                turn = turn > 0 ? 0 : 1;
+                //System.out.println(turn+" <=- After Reset");
+            } else {
+                System.out.println("Out Of Bounds");
             }
-
-            //new winCheck(g,D2,Player[turn]).winCheck();
-            //turn = turn>0?-1:0;
-            //turn++;
-
-            turn = turn > 0 ? 0 : 1;
-            //System.out.println(turn+" <=- After Reset");
-        }else {System.out.println("Out Of Bounds");}
+        }
     }
     public void resetT(){ turn = 0; }
     public int getTurn(){ return this.turn;}
