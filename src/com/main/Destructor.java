@@ -16,6 +16,7 @@ public class Destructor {
         wC.GameResult = "";
         wC.setWinner("");
         wC.winState = false;
+        wC.EmptySp = 9;
         wC.run();
     }
 }
