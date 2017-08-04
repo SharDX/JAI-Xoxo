@@ -120,12 +120,13 @@ public class winCheck implements Runnable {
         String Player0Stats = "Player : "+Players[0]+" Wins : "+pwin[0] + " |Losses : "+ploss[0];
         String Player1Stats = "Player : "+Players[1]+" Wins : "+pwin[1] + " |Losses : "+ploss[1];
         g.drawString(Player0Stats,Game.Grix,(box.size*Game.GS)+50);
-        g.drawString(Player1Stats,Game.Grix,(box.size*Game.GS)+100);
-        g.drawString("Tie Count => "+tieC,0,(box.size*Game.GS)+150);
+        g.drawString(Player1Stats,Game.Grix,(box.size*Game.GS)+80);
+        g.drawString("Tie Count => "+tieC,Game.Grix,(box.size*Game.GS)+110);
         for (int i = 0; i < 3; i++) {
             g.drawString(CV[i],430,(box.size*Game.GS)+40+(i*30));
         }
-        g.drawString("Games Played => " + Gamec +" || Turn => "+game.ML.getTurn()
-                ,160,box.size*Game.GS+150);
+        g.drawString("Games Played => " + Gamec +" || Turn => "+game.ML.getTurn()+
+                " || WinChecks => "+Count
+                ,Game.Grix,box.size*Game.GS+150);
     }
 }
