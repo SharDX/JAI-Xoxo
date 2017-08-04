@@ -11,6 +11,8 @@ public class MouseListener extends MouseAdapter implements Runnable {
         this.Player = Player;
         this.GS = GS;
         this.D2 = D2;
+        this.Player[0] = Player[0]+"|"+turn;
+        this.Player[1] = Player[1]+"|"+1;
         new Thread(this).start();
 
     }
@@ -27,9 +29,9 @@ public class MouseListener extends MouseAdapter implements Runnable {
                         //System.out.println("true .. "+ e.getX() +" y "+e.getY());
                         if (!D2[i][k].isOccupied()) {
                             if (turn > 0) {
-                                new O(D2[i][k], Player[turn], g);
+                                new O(D2[i][k], Player[turn], g, turn);
                             } else if (turn > -1) {
-                                new X(D2[i][k], Player[turn], g);
+                                new X(D2[i][k], Player[turn], g, turn);
                             }
                         }
                         //turn=!D2[i][k].isOccupied()?turn:turn>0?0:1;
@@ -50,7 +52,8 @@ public class MouseListener extends MouseAdapter implements Runnable {
             //System.out.println(turn+" <=- After Reset");
         }else {System.out.println("Out Of Bounds");}
     }
-
+    public void resetT(){ turn = 0; }
+    public int getTurn(){ return this.turn;}
     public void run(){
         turn = 0;
         System.out.println("Mouse Listener Started...");

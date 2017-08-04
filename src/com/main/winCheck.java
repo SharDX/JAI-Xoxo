@@ -5,22 +5,22 @@ import java.awt.*;
 
 public class winCheck implements Runnable {
     public boolean winState = false;boolean Tie = false;
-    String GameResult;
+    int GameResult;
     boolean Destroying;
     int[] pwin = new int[2];int[] ploss = new int[2];
     int tieC = 0;
     int Count = 0;
     int Gamec = 0;
-    Game g;int EmptySp = 9;
+    Game game;int EmptySp = 9;
     int n = 3;
     box[][] b;
     String Players[];
-    String Winner;
+    int Winner;
     String[] CV = new String[3];String CVLine = "";
 
-    public winCheck(Game g, box[][] b, String Players[]) {
+    public winCheck(Game game, box[][] b, String Players[]) {
         this.Players = Players;
-        this.g = g;
+        this.game = game;
         this.b = b;
         new Thread(this).start();
     }
@@ -39,7 +39,7 @@ public class winCheck implements Runnable {
             if (b[0][0].getXO() != 2) {
                 if (b[0][0].getXO() == b[1][1].getXO() && b[0][0].getXO() == b[2][2].getXO()) {
                     winState = true;System.out.println("Diag win");
-                    setWinner(b[0][2].getOccupier());
+                    setWinner(game.ML.getTurn()==1?0:1);
                     break;
                 }
             }
@@ -47,7 +47,7 @@ public class winCheck implements Runnable {
             if (b[0][2].getXO() != 2) {
                 if (b[0][2].getXO() == b[1][1].getXO() && b[0][2].getXO() == b[2][0].getXO()) {
                     winState = true;System.out.println("anti-Diag win");
-                    setWinner(b[0][2].getOccupier());
+                    setWinner(game.ML.getTurn()==1?0:1);
                     break;
                 }
             }
@@ -58,7 +58,7 @@ public class winCheck implements Runnable {
                     {
                         winState = true;
                         System.out.println("V win");
-                        setWinner(b[0][2].getOccupier());
+                        setWinner(game.ML.getTurn()==1?0:1);
                         break;
                     }
                 }
@@ -66,7 +66,7 @@ public class winCheck implements Runnable {
                     if (b[0][i].getXO() == b[1][i].getXO() && b[0][i].getXO() == b[2][i].getXO()){
                         winState = true;
                         System.out.println("H win");
-                        setWinner(b[0][2].getOccupier());
+                        setWinner(game.ML.getTurn()==1?0:1);
                         break;
                     }
                 }
@@ -88,28 +88,29 @@ public class winCheck implements Runnable {
             Count++;
             try { Thread.sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
         }
-        GameResult = winState?getWinner():"Tie";
+        GameResult = winState?getWinner():2;
         makeStats(GameResult);
         System.out.println("Game Ended With State " + GameResult + " Totall Amount of Checks .. "+Count);
         Gamec++;
-        new Destructor(b,g.xList,g.oList,this);
+        game.ML.resetT();
+        new Destructor(b,game.xList,game.oList,this);
 
     }
-    public String getResult(){ return this.GameResult; }
-    public String getWinner(){ return this.Winner; }
-    public void setWinner(String Winner){this.Winner = Winner;}
+    public int getResult(){ return this.GameResult; }
+    public int getWinner(){ return this.Winner; }
+    public void setWinner(int Winner){this.Winner = Winner;}
     public void run(){
             winCheck();
     }
-    public void makeStats(String GameResult){
-            if(GameResult.equals("Tie")){
+    public void makeStats(int GameResult){
+            if(GameResult == 2){
                 tieC++;
             }
-            if (GameResult.equals(Players[0])) {
+            if (GameResult == 0) {
                 pwin[0] += 1;
                 ploss[1] += 1;
             }
-            if (GameResult.equals(Players[1])) {
+            if (GameResult == 1) {
                 pwin[1] += 1;
                 ploss[0] += 1;
             }
@@ -124,7 +125,7 @@ public class winCheck implements Runnable {
         for (int i = 0; i < 3; i++) {
             g.drawString(CV[i],430,(box.size*Game.GS)+40+(i*30));
         }
-        g.drawString("Games Played => " + Gamec +" || Check Count => "+Count
+        g.drawString("Games Played => " + Gamec +" || Turn => "+game.ML.getTurn()
                 ,160,box.size*Game.GS+150);
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 
 public class Game extends JPanel{
+    public static MouseListener ML;
     public static winCheck Checker;
 
     public List<O>oList = new ArrayList<>();
@@ -38,7 +39,7 @@ public class Game extends JPanel{
     }
     public void setPlayerNames(String[] Players,Game g){
         this.Players = Players;
-        new MouseListener(g,GS,D2,Players);
+        ML = new MouseListener(g,GS,D2,Players);
         Checker = new winCheck(g,D2,Players);
     }
     public void Frame(){
@@ -52,7 +53,6 @@ public class Game extends JPanel{
     }
     @Override
     public void paint(Graphics g3d) {
-        if(!Checker.Destroying) {
             super.paint(g3d);
             Graphics2D g = (Graphics2D) g3d;
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -74,6 +74,5 @@ public class Game extends JPanel{
             for (O o : oList) {
                 o.draw(g);
             }
-        }
     }
 }
