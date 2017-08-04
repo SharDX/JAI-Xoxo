@@ -39,8 +39,8 @@ public class OptionMenue extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPane3 = new javax.swing.JTextPane();
 
-        jTextPane3.setText("Player1");
-        jTextPane2.setText("Player2");
+        jTextPane3.setText("NOR");
+        jTextPane2.setText("TOR");
         jScrollPane1.setViewportView(jTextPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);

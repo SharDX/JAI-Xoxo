@@ -6,9 +6,10 @@ import java.awt.*;
 
 public class X
 {
-    box b;String Player;
-            public X(box b, String Player,Game g) {
+    box b;String Player;int turn;
+            public X(box b, String Player,Game g,int turn) {
                     this.b = b;
+                    this.turn = turn;
                     this.Player = Player;
                     g.xList.add(this);
             }
@@ -18,7 +19,7 @@ public class X
                     g.drawLine(b.bX()+20,b.bY()+20,b.bX()+b.size-20,b.bY()+b.size()-20);
                     g.drawLine(b.bX()+20,b.bY()+b.size-20,b.bX()+b.size()-20,b.bY()+20);
                     b.setOccupied(true);
-                    b.setOccupier(Player);
+                    b.setOccupier(turn);
                     //System.out.println("Bx : " + b.bX() + " /By : " + b.bY());
                     g.setColor(Color.blue);
                     g.setFont(new Font(Font.SERIF,1,25));
