@@ -6,14 +6,17 @@ import java.awt.*;
 public class winCheck implements Runnable {
     public boolean winState = false;boolean Tie = false;
     String GameResult;
+    boolean Destroying;
     int[] pwin = new int[2];int[] ploss = new int[2];
     int tieC = 0;
     int Count = 0;
+    int Gamec = 0;
     Game g;int EmptySp = 9;
     int n = 3;
     box[][] b;
     String Players[];
     String Winner;
+    String[] CV = new String[3];String CVLine = "";
 
     public winCheck(Game g, box[][] b, String Players[]) {
         this.Players = Players;
@@ -68,24 +71,29 @@ public class winCheck implements Runnable {
                     }
                 }
             }
+            CVLine = "|  ";
             for (int r = 0; r < n; r++) {
                 for (int i = 0; i < n; i++) {
-                    System.out.print(b[r][i].getXO() + "  ");
+                    //System.out.print(b[r][i].getXO() + "  ");
+                    CVLine += b[r][i].getXO() + "   |  ";
                     if(b[r][i].getXO() != 2){EmptySp--;}
                     //else if(b[0][i].getXO() != b[0][i>0?i-1:i].getXO()) {}
                 }
-                System.out.println("");
+                //System.out.println("");
+                CVLine += "|L|  ";
             }
+            CV = CVLine.split("L");
             if(EmptySp==0){Tie=true;break;}else{EmptySp=9;}
-
-            System.out.println("-------");
+            //System.out.println("-------");
             Count++;
-            try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(200); } catch (InterruptedException e) { e.printStackTrace(); }
         }
         GameResult = winState?getWinner():"Tie";
         makeStats(GameResult);
         System.out.println("Game Ended With State " + GameResult + " Totall Amount of Checks .. "+Count);
+        Gamec++;
         new Destructor(b,g.xList,g.oList,this);
+
     }
     public String getResult(){ return this.GameResult; }
     public String getWinner(){ return this.Winner; }
@@ -107,11 +115,16 @@ public class winCheck implements Runnable {
             }
         }
     public void drawStats(Graphics g){
-        g.setFont(new Font(Font.SERIF, 1,20));
+        g.setFont(new Font(Font.SERIF, 1,25));
         String Player0Stats = "Player : "+Players[0]+" Wins : "+pwin[0] + " |Losses : "+ploss[0];
         String Player1Stats = "Player : "+Players[1]+" Wins : "+pwin[1] + " |Losses : "+ploss[1];
-        g.drawString(Player0Stats,0,(box.size*Game.GS)+50);
-        g.drawString(Player1Stats,0,(box.size*Game.GS)+100);
-        g.drawString("Tie Count : "+tieC,0,(box.size*Game.GS)+150);
+        g.drawString(Player0Stats,Game.Grix,(box.size*Game.GS)+50);
+        g.drawString(Player1Stats,Game.Grix,(box.size*Game.GS)+100);
+        g.drawString("Tie Count => "+tieC,0,(box.size*Game.GS)+150);
+        for (int i = 0; i < 3; i++) {
+            g.drawString(CV[i],430,(box.size*Game.GS)+40+(i*30));
+        }
+        g.drawString("Games Played => " + Gamec +" || Check Count => "+Count
+                ,160,box.size*Game.GS+150);
     }
 }
