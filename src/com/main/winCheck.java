@@ -1,10 +1,13 @@
 package com.main;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class winCheck implements Runnable {
-    boolean winState = false;boolean Tie = false;
-    String GameResutl;
+    public boolean winState = false;boolean Tie = false;
+    String GameResult;
+    int[] pwin = new int[2];int[] ploss = new int[2];
+    int tieC = 0;
     int Count = 0;
     Game g;int EmptySp = 9;
     int n = 3;
@@ -17,7 +20,6 @@ public class winCheck implements Runnable {
         this.g = g;
         this.b = b;
         new Thread(this).start();
-
     }
 
     /*
@@ -76,17 +78,40 @@ public class winCheck implements Runnable {
             }
             if(EmptySp==0){Tie=true;break;}else{EmptySp=9;}
 
-            System.out.println("-------" + "Empty Spaces -> "+EmptySp);udggd
+            System.out.println("-------");
             Count++;
             try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
         }
-        GameResutl = winState?getWinner():"Tie";
-        System.out.println("Game Ended With State " +GameResutl+ " Totall Amount of Checks .. "+Count);
+        GameResult = winState?getWinner():"Tie";
+        makeStats(GameResult);
+        System.out.println("Game Ended With State " + GameResult + " Totall Amount of Checks .. "+Count);
+        new Destructor(b,g.xList,g.oList,this);
     }
-    public String getState(){ return this.getWinner(); }
+    public String getResult(){ return this.GameResult; }
     public String getWinner(){ return this.Winner; }
     public void setWinner(String Winner){this.Winner = Winner;}
     public void run(){
             winCheck();
+    }
+    public void makeStats(String GameResult){
+            if(GameResult.equals("Tie")){
+                tieC++;
+            }
+            if (GameResult.equals(Players[0])) {
+                pwin[0] += 1;
+                ploss[1] += 1;
+            }
+            if (GameResult.equals(Players[1])) {
+                pwin[1] += 1;
+                ploss[0] += 1;
+            }
+        }
+    public void drawStats(Graphics g){
+        g.setFont(new Font(Font.SERIF, 1,20));
+        String Player0Stats = "Player : "+Players[0]+" Wins : "+pwin[0] + " |Losses : "+ploss[0];
+        String Player1Stats = "Player : "+Players[1]+" Wins : "+pwin[1] + " |Losses : "+ploss[1];
+        g.drawString(Player0Stats,0,(box.size*Game.GS)+50);
+        g.drawString(Player1Stats,0,(box.size*Game.GS)+100);
+        g.drawString("Tie Count : "+tieC,0,(box.size*Game.GS)+150);
     }
 }

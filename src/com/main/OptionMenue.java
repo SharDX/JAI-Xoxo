@@ -124,7 +124,7 @@ public class OptionMenue extends javax.swing.JFrame {
         String Players[] = new String[2];
         Players[0] = jTextPane3.getText();
         Players[1] = jTextPane2.getText();
-        System.out.println(jTextPane3.getText());
+        //System.out.println(jTextPane3.getText());
         g.setPlayerNames(Players,g);
         g.Frame();
     }

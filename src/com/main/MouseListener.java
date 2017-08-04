@@ -24,8 +24,8 @@ public class MouseListener extends MouseAdapter implements Runnable {
                 //System.out.println(i + " k "+k);
                 if(D2[i][k].Contain(e.getPoint())){
                     //System.out.println("true .. "+ e.getX() +" y "+e.getY());
-                    if(turn >0){new O(D2[i][k],Player[turn]+turn,g);}
-                    else {new X(D2[i][k],Player[turn]+turn,g);}
+                    if(turn >0 && !D2[i][k].isOccupied()){new O(D2[i][k],Player[turn],g);}
+                    else if(turn >-1 && !D2[i][k].isOccupied()) {new X(D2[i][k],Player[turn],g);}
                     turn=!D2[i][k].isOccupied()?turn:turn>0?0:1;
                     //System.out.println(this.turn+" <- After Dup Check");
                     D2[i][k].setXO(turn);

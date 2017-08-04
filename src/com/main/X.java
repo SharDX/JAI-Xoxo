@@ -14,7 +14,6 @@ public class X
             }
 
             public void draw(Graphics g) {
-                if (!b.isOccupied()) {
                     g.setColor(Color.RED);
                     g.drawLine(b.bX()+20,b.bY()+20,b.bX()+b.size-20,b.bY()+b.size()-20);
                     g.drawLine(b.bX()+20,b.bY()+b.size-20,b.bX()+b.size()-20,b.bY()+20);
@@ -24,6 +23,5 @@ public class X
                     g.setColor(Color.blue);
                     g.setFont(new Font(Font.SERIF,1,25));
                     g.drawString(Player,(b.bX()+(b.size()/2))-35,b.bY()+(b.size/2));
-                }
             }
 }
