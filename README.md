@@ -9,7 +9,7 @@ Futures ->
   Console numerical Visualization for Debugging .   
   
 Cons ->    
-  ~~(Player Turns Change Every Game For Some Reason ... will be fixed in next update..) ~~
+  ~~Player Turns Change Every Game For Some Reason ... will be fixed in next update..~~  
   Java Concurrent Modification Errors which may lead to non-Painting Correctlly .. will be fixed in future updates..   
  
  
