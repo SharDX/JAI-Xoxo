@@ -6,8 +6,8 @@ public class box extends Rectangle {
     int x,y;int XO = 2;
     public static final int size = 200;
     boolean Occupied = false;
-    static int Occupier;
-    public box(int x,int y){this.x=x;this.y=y;}
+    static int Occupier;Game g;
+    public box(int x,int y,Game g){this.x=x;this.y=y;this.g = g;}
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawRect(x, y, size, size);
@@ -28,6 +28,7 @@ public class box extends Rectangle {
         }
         return Eval;
     }
+
     public void setOccupier(int Occupier){ this.Occupier = Occupier; }
     public void setOccupied(boolean S){this.Occupied = S;}
     public void setXO(int XO){ this.XO = XO; }

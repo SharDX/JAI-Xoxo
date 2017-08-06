@@ -18,6 +18,5 @@ public class Destructor {
         wC.winState = false;
         wC.EmptySp = 9;
         System.out.println("[+] Destroyed ..");
-        wC.run();
     }
 }
