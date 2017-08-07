@@ -10,10 +10,10 @@ Futures ->
   
 Cons ->    
   ~~Player Turns Change Every Game For Some Reason ... will be fixed in next update..~~  
-  Java Concurrent Modification Errors which may lead to non-Painting Correctlly .. will be fixed in future updates..   
+  ~~Java Concurrent Modification Errors which may lead to non-Painting Correctlly .. will be fixed in future updates..   ~~   
  
  
 Proggress ...    
-  Main/Core Game  9/10 90%     
-  Algorithm 0/10 0%     
+  Main/Core Game  10/10 100%     
+  Algorithm 1/10 10%     
   Neural Network AI 0/10 0%    
