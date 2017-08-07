@@ -7,10 +7,13 @@ import java.util.List;
 
 
 public class Game extends JPanel{
+    public static boolean Ai = true;
     public static boolean Destorying = false;
 
     public static MouseListener ML;
+    public static Statistics stats;
     public static winCheck Checker;
+    public static Turn turn;
 
     public List<O>oList = new ArrayList<>();
     public List<X>xList = new ArrayList<>();
@@ -23,24 +26,25 @@ public class Game extends JPanel{
     public static String Players[];
     public static void main(String[] args) throws InterruptedException {
         Game g = new Game();
+        stats = new Statistics(g);
+        turn = new Turn(g);
         new OptionMenue(g).start();
         int i;
         for (int e = 0; e < GS; e++) {
             for (i = 0; i < GS; i++) {
-                D2[i][e] = i > 0 ? new box(D2[i - 1][e].bX() + box.size, Griy) : new box(Grix, Griy);
+                D2[i][e] = i > 0 ? new box(D2[i - 1][e].bX() + box.size, Griy,g) : new box(Grix, Griy,g);
             }
             Griy += 200;
         }
         while (true) {
             if(!Destorying) {
                 g.repaint();
-            }else {Thread.sleep(5);}
+            }else {Thread.sleep(15);}
         }
     }
     public void setPlayerNames(String[] Players,Game g){
         this.Players = Players;
         ML = new MouseListener(g,GS,D2,Players);
-        Checker = new winCheck(g,D2,Players);
     }
     public void Frame(){
         JFrame mFrame = new JFrame();
@@ -57,7 +61,7 @@ public class Game extends JPanel{
             Graphics2D g = (Graphics2D) g3d;
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            Checker.drawStats(g);
+            if(stats != null){stats.drawStats(g);}
             g.setStroke(new BasicStroke(10));
             int i;
             for (int j = 0; j < GS; j++) {
