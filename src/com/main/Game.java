@@ -3,18 +3,24 @@ package com.main;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 public class Game extends JPanel{
+    public static int ErrC = 0;
     public static boolean Ai = true;
     public static boolean Destorying = false;
 
     public static MouseListener ML;
     public static Statistics stats;
+    public static NextToPlayer NxtP;
+    public static SimplyRandom simplyRandom;
     public static winCheck Checker;
     public static Turn turn;
 
+    Iterator<X> xs;
+    Iterator<O> os;
     public List<O>oList = new ArrayList<>();
     public List<X>xList = new ArrayList<>();
 
@@ -26,6 +32,7 @@ public class Game extends JPanel{
     public static String Players[];
     public static void main(String[] args) throws InterruptedException {
         Game g = new Game();
+        simplyRandom = new SimplyRandom(g);
         stats = new Statistics(g);
         turn = new Turn(g);
         new OptionMenue(g).start();
@@ -36,15 +43,19 @@ public class Game extends JPanel{
             }
             Griy += 200;
         }
-        while (true) {
-            if(!Destorying) {
+        /*while (true) {
+
                 g.repaint();
-            }else {Thread.sleep(15);}
-        }
+
+        }*/
+    }
+    public void rePaint() throws InterruptedException {
+        if(!Destorying){repaint();}
     }
     public void setPlayerNames(String[] Players,Game g){
         this.Players = Players;
         ML = new MouseListener(g,GS,D2,Players);
+        //new AiWorker(g,10);
     }
     public void Frame(){
         JFrame mFrame = new JFrame();
@@ -68,15 +79,21 @@ public class Game extends JPanel{
                 for (i = 0; i < GS; i++) {
                     D2[i][j].draw(g);
                 }
-                //D2[i-1][j].draw(g);
             }
-            //System.out.println(D2[2][0].bX());
-
-            for (X x : xList) {
-                x.draw(g);
-            }
-            for (O o : oList) {
-                o.draw(g);
-            }
+            if(NxtP != null){NxtP.ESP(g);g.setColor(Color.black);}
+        if(simplyRandom != null){simplyRandom.ESP(g);g.setColor(Color.black);}
+            if(turn.drawable){turn.drawTurn(g);}
+                for (xs=xList.iterator();xs.hasNext();) {
+                    if(!Destorying) {
+                        X x = xs.next();
+                        x.draw(g);
+                    }
+                }
+                for (os = oList.iterator();os.hasNext();) {
+                    if(!Destorying) {
+                        O o = os.next();
+                        o.draw(g);
+                    }
+                }
     }
 }

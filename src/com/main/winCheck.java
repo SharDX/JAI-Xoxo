@@ -1,8 +1,6 @@
 package com.main;
 
 
-import java.util.Random;
-
 public class winCheck {
     public boolean winState = false;boolean Tie = false;
     int GameResult = -1;
@@ -22,16 +20,13 @@ public class winCheck {
         this.b = game.D2;
 
 
-
-        System.out.println("[+++] Performing Win Check" + game.xList.size() + " O Amount " + game.oList.size());
-        //tie Checker
         //Diagonal Checkers
         if (b[0][0].getXO() != 2) {
             if (b[0][0].getXO() == b[1][1].getXO() && b[0][0].getXO() == b[2][2].getXO()) {
                 winState = true;System.out.println("Diag win");
                 setWinner(game.turn.turn);
             }
-        }    else {System.out.println(b[0][0].getXO() + " and " + b[1][1].getXO() + " and" + b[2][2].getXO());}
+        }
         // anti-diagonal Checker
         if (b[0][2].getXO() != 2) {
             if (b[0][2].getXO() == b[1][1].getXO() && b[0][2].getXO() == b[2][0].getXO()) {
@@ -70,7 +65,7 @@ public class winCheck {
             //System.out.println("");
             CVLine += "|L|  ";
         }
-        System.out.println(EmptySp);
+        //System.out.println(EmptySp);
         CV = CVLine.split("L");
         if(EmptySp==0){Tie=true;System.out.println("Its A Tie");}else{EmptySp=9;}
         //System.out.println("-------");
@@ -79,9 +74,16 @@ public class winCheck {
         if(winState == true || Tie == true) {
             GameResult = winState ? getWinner() : 2;
             game.stats.update(CV,GameResult);
-            System.out.println("Game Ended With State " + GameResult + " Totall Amount of Checks .. " + Count);
+            //System.out.println("Game Ended With State " + GameResult + " Totall Amount of Checks .. " + Count);
             Gamec++;
+            game.Destorying = true;
             new Destructor(b, game.xList, game.oList, this);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            game.Destorying = false;
 
         }
     }

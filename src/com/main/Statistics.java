@@ -12,7 +12,6 @@ public class Statistics {
     int GameResult;
     String[] CV = new String[3];
     public Statistics(Game game){
-        System.out.println("Test .. ");
         CV[0]="0";CV[1]="0";CV[2]="0";
         this.game = game;
     }

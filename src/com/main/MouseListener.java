@@ -1,9 +1,7 @@
 package com.main;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 public class MouseListener extends MouseAdapter implements Runnable {
     public Game g;public int GS;box[][]D2;int turn;String[] Player;
@@ -29,11 +27,14 @@ public class MouseListener extends MouseAdapter implements Runnable {
                             if (D2[i][k].Contain(e.getPoint())) {
                                     g.turn.nextTurn(i,k);
                             }
-                            if(g.Ai == true){
-                                //g.turn.nextTurn();
-                            }
                         }
                     }
+                    if(g.Ai == true){
+                         //g.simplyRandom = new SimplyRandom(g);
+                         //g.simplyRandom.randMove();
+                         g.NxtP = new NextToPlayer(g);
+                         g.NxtP.NxtMove();
+                        }
                 } else {
                     System.out.println("Out Of Bounds");
                 }
